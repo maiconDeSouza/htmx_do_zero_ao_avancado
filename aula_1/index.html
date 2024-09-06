@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Exemplo htmx</title>
+    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 </head>
 <body>
-    <h1>Aula 1</h1>
-    <button hx-get="https://jsonplaceholder.typicode.com/users/1" hx-target="#usuarios">Buscar Usuários</button>
-    <div id="usuarios"></div>
+    <h1>Exemplo de htmx</h1>
+    <button 
+      hx-get="https://jsonplaceholder.typicode.com/users/1" 
+      hx-target="#usuarios"
+      hx-trigger="click[ctrlKey]"
+    >
+      buscar usuários
+    </button>
+    <div id="usuarios">
+        
+    </div>
 </body>
 </html>

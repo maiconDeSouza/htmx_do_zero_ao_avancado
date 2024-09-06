@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Projeto HTMX</h1>
+    <button hx-get="/primeira-rota" hx-target="#primeira-rota" hx-swap="outerHTML">Alterar Foto</button>
+    <br>
+    <img id="primeira-rota" src="https://wallpapers.com/images/high/bill-gates-1920-x-1200-background-ein611w7kzivnwrw.webp" alt="" width="400">
+    <br>
+    <button hx-get="/users" hx-target="#users" hx-indicator="#loading">teste</button>
+    <div id="users">
+        <span id="loading" class="htmx-indicator">
+            <img src="./img/loading.gif" width="40">
+        </span>
+    </div>
+</body>
+</html>
