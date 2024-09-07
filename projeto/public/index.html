@@ -8,14 +8,27 @@
 </head>
 <body>
     <h1>Projeto HTMX</h1>
-    <button hx-get="/primeira-rota" hx-target="#primeira-rota" hx-swap="outerHTML">Alterar Foto</button>
-    <br>
-    <img id="primeira-rota" src="https://wallpapers.com/images/high/bill-gates-1920-x-1200-background-ein611w7kzivnwrw.webp" alt="" width="400">
-    <br>
-    <button hx-get="/users" hx-target="#users" hx-indicator="#loading">teste</button>
+    <div id="primeira-rota">
+        <button 
+            type="button" 
+            hx-get="/primeira-rota/bill" 
+            hx-target="#primeira-rota" 
+            hx-swap="outerHTML"
+        >
+            Alterar Foto
+        </button>
+        <br>
+        <img 
+            src="https://wallpapers.com/images/high/bill-gates-1920-x-1200-background-ein611w7kzivnwrw.webp" 
+            alt="" 
+            width="400"
+        >
+        <br>
+    </div>
+    <button type="button" hx-get="/users" hx-target="#users" hx-indicator="#loading">teste</button>
     <div id="users">
         <span id="loading" class="htmx-indicator">
-            <img src="./img/loading.gif" width="40">
+            <img src="./img/loading.gif" width="40" alt="">
         </span>
     </div>
 </body>
