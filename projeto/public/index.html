@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+    <script src="./index.js" defer></script>
     <title>Document</title>
+    <style>
+        #bloco {
+            width: 100%;
+            height: 700px;
+            background-color: brown;
+        }
+    </style>
 </head>
 <body>
-    <h1>Projeto HTMX</h1>
+    <h1 hx-get="/frases" hx-trigger="every 120s">Projeto HTMX</h1>
     <div id="primeira-rota">
         <button 
             type="button" 
             hx-get="/primeira-rota/bill" 
             hx-target="#primeira-rota" 
             hx-swap="outerHTML"
+            hx-trigger="click from:#button-trigger"
         >
             Alterar Foto
         </button>
@@ -25,11 +34,53 @@
         >
         <br>
     </div>
-    <button type="button" hx-get="/users" hx-target="#users" hx-indicator="#loading">teste</button>
+    <button 
+        type="button" 
+        hx-get="/users" 
+        hx-target="#users" 
+        hx-indicator="#loading"
+        hx-trigger="click from:#button-trigger"
+        hx-vals='{"limit": 3}'
+    >
+        teste
+    </button>
     <div id="users">
         <span id="loading" class="htmx-indicator">
             <img src="./img/loading.gif" width="40" alt="">
         </span>
     </div>
+    <br>
+    <br>
+    <button type="button" id="button-trigger">
+        disparar os dois
+    </button>
+    <div id="bloco"></div>
+    <p hx-get="/frases" hx-trigger="revealed"></p>
+    <h2>HX Vals</h2>
+    <button 
+        type="button" 
+        hx-get="/info" 
+        hx-target="#info-teste" 
+        hx-vals='{"nome": "Maicon", "cargo": "Django Developer"}'>
+        Acessar
+    </button>
+    <p id="info-teste"></p>
+    <h2>Cancelar requisição</h2>
+    <button type="button" hx-get="/dados" hx-target="#dados-result" id="button-dados">Carregar dados</button>
+    <button type="button" onclick="htmx.trigger('#button-dados', 'htmx:abort')">Cancelar</button>
+    <p id="dados-result"></p>
+    <br>
+    <br>
+    <br>
+    <h2>Tratando JSON</h2>
+    <button type="button" hx-get="usuarios_data" hx-swap="none" id="busca-usuario">Buscar usuários</button>
+    <ul id="usuarios-data" hx-swap="innerHTML"></ul>
+    <br>
+    <br>
+    <h2>Tratamento de erro:</h2>
+    <button type="button" hx-get="/search" hx-target="#response-search">Buscar</button>
+    <p id="response-search"></p>
+    <br>
+    <br>
 </body>
 </html>

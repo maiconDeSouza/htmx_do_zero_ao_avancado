@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-
+import { fotoGenerateHTML, frasesMotivacionais, gerarFraseAleatoria } from './utils.js'
 
 const app = express()
 const port = 1992
@@ -29,7 +29,9 @@ app.get("/primeira-rota/:person", (req, res) => {
 
 app.get("/users", async (req, res) => {
     setTimeout(async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users')
+        const limit = +req.query.limit
+     
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users?_limit=${limit}`)
         const data = await response.json()
 
         const htmlResponse = data.map(user => `<div>${user.name} - ${user.email}</div>`).join("")
@@ -38,28 +40,38 @@ app.get("/users", async (req, res) => {
     },2500)
 })
 
+app.get("/frases", (req, res) => {
+    const frase = gerarFraseAleatoria(frasesMotivacionais)
+    res.send(`${frase}`)
+})
+
+app.get("/info", (req, res) => {
+    const nome = req.query.nome
+    const cargo = req.query.cargo
+    res.send(`Olá ${nome} com o cargo: ${cargo}`)
+})
+
+app.get("/dados", (req, res) => {
+    setTimeout(() => {
+        res.send("Dados carregados")
+    }, 5000)
+})
+
+app.get('/usuarios_data', (req, res) => {
+    const usuariosData = [
+        {id: 1, name: "Dante", email: "dante@teste.com.br"},
+        {id: 2, name: "Talu", email: "talu@teste.com.br"},
+        {id: 1, name: "Delinha", email: "dela@teste.com.br"},
+        {id: 1, name: "Maia", email: "donamaia@teste.com.br"}
+    ]
+    res.json(usuariosData)
+})
+
+app.get("/search", (req, res) => {
+    res.status(500).send("Erro no servidor")
+})
+
 app.listen(port, () => console.log(`servidor rodando http://localhost:${port}`))
 
 
-function fotoGenerateHTML(person, pathImagem){
-    const htmlResponse = `
-        <div id="primeira-rota">
-            <button 
-                type="button" 
-                hx-get="/primeira-rota/${person}" 
-                hx-target="#primeira-rota" 
-                hx-swap="outerHTML"
-            >
-                Alterar Foto
-            </button>
-            <br>
-            <img 
-                src="${pathImagem}" alt="" width="400" 
-                alt="" 
-                width="400"
-            >
-            <br>
-        </div>
-    `
-    return htmlResponse
-}
+
